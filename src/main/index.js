@@ -1230,10 +1230,17 @@ function runApp() {
 
     newWindow.on('enter-html-full-screen', () => {
       htmlFullscreenWindowIds.add(newWindow.id)
+      // True fullscreen: hide the tab-bar chrome and let the active tab fill the window.
+      chromeView.setVisible(false)
+      tabManager.setChromeHidden(true)
     })
 
     newWindow.on('leave-html-full-screen', () => {
       htmlFullscreenWindowIds.delete(newWindow.id)
+      // Restore the tab-bar chrome and shrink the active tab back below it.
+      tabManager.setChromeHidden(false)
+      chromeView.setVisible(true)
+      layoutChrome()
     })
 
     newWindow.once('close', async () => {
@@ -1299,8 +1306,15 @@ function runApp() {
   })
 
   ipcMain.on(IpcChannels.SET_WINDOW_TITLE, (event, title) => {
-    if (isFreeTubeUrl(event.senderFrame.url) && typeof title === 'string') {
-      BrowserWindow.fromWebContents(event.sender)?.setTitle(title)
+    if (!(isFreeTubeUrl(event.senderFrame.url) && typeof title === 'string')) { return }
+    // TabTube: every tab is its own WebContentsView and reports its own document
+    // title, so only the ACTIVE tab may drive the window heading — a background
+    // tab loading a video/channel must not hijack it.
+    for (const win of BrowserWindow.getAllWindows()) {
+      if (win._tabManager?.activeView()?.webContents === event.sender) {
+        win.setTitle(title)
+        return
+      }
     }
   })
 

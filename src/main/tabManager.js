@@ -28,6 +28,9 @@ export class TabManager {
     this.tabs = []
     this.activeId = null
     this._uid = 0
+    // When a tab enters HTML fullscreen (e.g. the video player), the chrome strip
+    // is hidden and the active view fills the whole window (see setChromeHidden).
+    this._chromeHidden = false
 
     // Defer: on maximize/fullscreen the event fires before getContentSize() reflects
     // the new bounds, so lay out on the next tick (and again on the settled resize).
@@ -88,6 +91,7 @@ export class TabManager {
     view.webContents.on('page-title-updated', (_event, title) => {
       tab.title = title
       tab.loading = false
+      if (tab.id === this.activeId) { this._syncWindowTitle() }
       this._emit()
     })
     // Keep background tabs paused as the tab (re)loads.
@@ -110,6 +114,7 @@ export class TabManager {
     const tab = this.tabs.find(t => t.id === id)
     if (!tab) { return }
     this.activeId = id
+    this._syncWindowTitle()
     for (const t of this.tabs) {
       t.view.setVisible(t.id === id)
     }
@@ -204,13 +209,33 @@ export class TabManager {
     const [width, height] = this.window.getContentSize()
     const active = this.activeView()
     if (active) {
+      // In HTML fullscreen the chrome strip is hidden, so the active view fills
+      // the whole window; otherwise it sits below the fixed tab-bar strip.
+      const top = this._chromeHidden ? 0 : TAB_BAR_HEIGHT
       active.setBounds({
         x: 0,
-        y: TAB_BAR_HEIGHT,
+        y: top,
         width,
-        height: Math.max(0, height - TAB_BAR_HEIGHT)
+        height: Math.max(0, height - top)
       })
     }
+  }
+
+  /**
+   * Hide/show the tab-bar chrome (used for HTML fullscreen, e.g. the video player).
+   * When hidden, the active view expands to fill the whole window.
+   */
+  setChromeHidden(hidden) {
+    this._chromeHidden = hidden
+    // Defer so the layout reflects the window's settled fullscreen bounds.
+    setTimeout(() => this._layout(), 0)
+  }
+
+  /** Keep the window heading in sync with the ACTIVE tab's title. */
+  _syncWindowTitle() {
+    if (this.window.isDestroyed()) { return }
+    const tab = this.tabs.find(t => t.id === this.activeId)
+    this.window.setTitle(tab && tab.title ? tab.title : 'TabTube')
   }
 
   _emit() {
