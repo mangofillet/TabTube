@@ -53,3 +53,35 @@ jobs:
             build/*.exe
             build/*.dmg
           if-no-files-found: warn
+
+  # On a version tag, gather every OS's installers and publish them to the GitHub
+  # Release automatically (no manual upload — that was the source of past 404s).
+  release:
+    name: Publish release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all installers
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Publish to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/**/*
+          fail_on_unmatched_files: true
+          body: |
+            TabTube ${{ github.ref_name }} — a private YouTube client with tabs
+            (unofficial fork of FreeTube, AGPL-3.0; not affiliated with the FreeTube project).
+
+            **Downloads**
+            - Linux: `.AppImage`
+            - Windows: `.exe` (installer + portable)
+            - macOS: `.dmg`
+
+            Builds are unsigned: on macOS right-click → Open; on Windows use
+            SmartScreen → More info → Run anyway.
