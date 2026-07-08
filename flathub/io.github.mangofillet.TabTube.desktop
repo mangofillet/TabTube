@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=TabTube
+Comment=A private YouTube client with tabs
+Exec=tabtube %U
+Icon=io.github.mangofillet.TabTube
+Type=Application
+Categories=AudioVideo;Video;Network;
+StartupWMClass=TabTube
+MimeType=x-scheme-handler/tabtube;

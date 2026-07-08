@@ -1,0 +1,47 @@
+# TabTube Flatpak manifest.
+# Repackages the released Linux AppImage on the Electron base app. This is the
+# pragmatic route for a pnpm-based Electron app (a full source build on Flathub would
+# additionally need offline pnpm sources via flatpak-node-generator).
+app-id: io.github.mangofillet.TabTube
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '24.08'
+command: tabtube
+separate-locales: false
+
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=pulseaudio
+  - --device=dri
+  - --talk-name=org.freedesktop.Notifications
+  - --filesystem=xdg-download
+
+modules:
+  - name: tabtube
+    buildsystem: simple
+    build-commands:
+      - ./TabTube.AppImage --appimage-extract
+      - cp -a squashfs-root "${FLATPAK_DEST}/tabtube"
+      - install -Dm755 tabtube.sh "${FLATPAK_DEST}/bin/tabtube"
+      - install -Dm644 io.github.mangofillet.TabTube.desktop "${FLATPAK_DEST}/share/applications/io.github.mangofillet.TabTube.desktop"
+      - install -Dm644 io.github.mangofillet.TabTube.metainfo.xml "${FLATPAK_DEST}/share/metainfo/io.github.mangofillet.TabTube.metainfo.xml"
+      - install -Dm644 icon-512.png "${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/io.github.mangofillet.TabTube.png"
+    sources:
+      - type: file
+        url: https://github.com/mangofillet/TabTube/releases/download/v0.1.0/TabTube-0.24.1.AppImage
+        sha256: ee60d8cb5ee50762d4496681944b8c92608b7cd29a4ca00df2b583b9094547c5
+        dest-filename: TabTube.AppImage
+      - type: script
+        dest-filename: tabtube.sh
+        commands:
+          - exec zypak-wrapper "/app/tabtube/tabtube" "$@"
+      - type: file
+        path: io.github.mangofillet.TabTube.desktop
+      - type: file
+        path: io.github.mangofillet.TabTube.metainfo.xml
+      - type: file
+        path: icon-512.png
