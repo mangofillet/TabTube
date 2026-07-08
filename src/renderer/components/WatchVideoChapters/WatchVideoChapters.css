@@ -1,0 +1,88 @@
+.videoChapters {
+  overflow-y: hidden;
+}
+
+.chaptersSummary {
+  margin-block: 10px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.chaptersTitle {
+  margin-block: 0;
+}
+
+.currentChapter {
+  font-size: 15px;
+}
+
+.chaptersWrapper {
+  margin-block-start: 15px;
+  max-block-size: 250px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chaptersWrapper.compact {
+  max-block-size: 200px;
+}
+
+.chaptersChevron {
+  vertical-align: middle;
+}
+
+.chaptersDetails[open] .chaptersChevron {
+  transform: translateX(4px) rotate(90deg);
+}
+
+.chaptersDetails[open]:dir(rtl) .chaptersChevron {
+  transform: translateX(-4px) rotate(90deg);
+}
+
+.chapter {
+  display: grid;
+  grid-template:
+    'thumbnail title' 2fr
+    'thumbnail timestamp' 2fr / auto 1fr;
+  column-gap: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.chaptersWrapper.compact .chapter {
+  display: flex;
+  flex-direction: row;
+}
+
+.chapterThumbnail {
+  grid-area: thumbnail;
+  inline-size: 130px;
+  margin: 3px;
+}
+
+.chapter.current .chapterThumbnail {
+  border: solid 3px var(--accent-color);
+  margin: 0;
+}
+
+.chapterTitle {
+  grid-area: title;
+  align-self: center;
+  margin: 0;
+}
+
+.chapter.current .chapterTitle {
+  font-weight: bold;
+}
+
+.chapterTimestamp {
+  grid-area: timestamp;
+  place-self: flex-start start;
+  padding-block: 3px;
+  padding-inline: 4px;
+  border-radius: 5px;
+  background-color: var(--accent-color);
+  color: var(--text-with-accent-color);
+}

@@ -1,0 +1,48 @@
+.shelfContainer {
+  margin-block-start: 0.5em;
+  max-inline-size: 85vw;
+}
+
+.shelfTitle {
+  font-size: 24px;
+  cursor: pointer;
+
+  /* Prevents overflow for long values */
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+}
+
+.shelfTitle::marker {
+  font-size: 20px;
+  color: var(--accent-color);
+}
+
+.shelfUnderline {
+  border-color: var(--primary-color);
+}
+
+.playAllSpan {
+  font-size: 18px;
+  margin-inline-start: 10px;
+}
+
+.playAllLink {
+  font-style: italic;
+  padding-block: 5px;
+  padding-inline: 7px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.playAllLink:hover {
+  background-color: var(--bg-color);
+}
+
+.shelfSubtitle {
+  font-style: italic;
+  color: var(--tertiary-text-color);
+
+  /* Prevents overflow for long values */
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+}

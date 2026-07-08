@@ -1,0 +1,32 @@
+# Put the name of your locale in the same language
+Locale Name: 'ᱥᱟᱱᱛᱟᱲᱤ'
+
+# Webkit Menu Bar
+File: 'ᱨᱮᱫᱽ'
+Quit: 'ᱵᱟᱹᱫ'
+Edit: 'ᱥᱟᱯᱲᱟᱣ'
+Undo: 'ᱞᱟᱹᱪᱷᱞᱟ'
+Redo: 'ᱫᱩᱦᱲᱟᱹ ᱫᱚᱦᱚ'
+Cut: 'ᱜᱮᱫᱽ'
+Copy: 'ᱱᱚᱠᱚᱞ'
+Paste: 'ᱞᱟᱴᱷᱟ'
+Delete: 'ᱢᱮᱴᱟᱣ'
+Select all: 'ᱡᱷᱚᱛᱚ ᱪᱚᱭᱚᱱ ᱢᱮᱸ'
+Search Filters: {}
+Settings:
+  # On Settings Page
+  General Settings: {}
+  Theme Settings: {}
+  Player Settings: {}
+Channel:
+  Videos: {}
+Tooltips: {}
+New Window: ᱱᱟᱶᱟ ᱣᱤᱱᱰᱚ
+KeyboardShortcutPrompt:
+  Zoom Out: ᱢᱟᱨᱟᱝ ᱠᱷᱚᱱ ᱦᱤᱲᱤᱧ ᱛᱮᱭᱟᱨ
+  Zoom In: ᱢᱟᱨᱟᱝ ᱛᱮᱭᱟᱨ
+Actual size: ᱴᱷᱤᱠ ᱢᱟᱨᱟᱝ ᱛᱮᱫ
+Profile:
+  Select All: ᱡᱷᱚᱛᱚ ᱪᱚᱭᱚᱱ ᱢᱮᱸ
+Zoom in: ᱢᱟᱨᱟᱝ ᱛᱮᱭᱟᱨ
+Zoom out: ᱢᱟᱨᱟᱝ ᱠᱷᱚᱱ ᱦᱤᱲᱤᱧ ᱛᱮᱭᱟᱨ

@@ -1,0 +1,150 @@
+# Put the name of your locale in the same language
+Locale Name: 'Filipino'
+
+# Webkit Menu Bar
+File: 'File'
+Quit: 'Umalis'
+Edit: 'I-edit'
+Undo: 'Pawalang-bisa'
+Redo: 'Gawing Muli'
+Cut: 'Putolin'
+Copy: 'Kopya'
+Paste: 'I-paste'
+Delete: 'Alisin'
+Select all: 'Piliin lahat'
+Toggle Developer Tools: 'I-toggle ang mga Developer Tools'
+Actual size: 'Totoong sukat'
+Zoom in: 'Palakihin'
+Zoom out: 'Paliitin'
+Toggle fullscreen: 'I-fullscreen'
+Window: 'Ang window'
+Minimize: 'I-minimize'
+Close: 'Isara'
+Back: 'Bumalik'
+Forward: 'Pagsulong'
+
+# Search Bar
+Search / Go to URL: 'Maghanap / Pumunta sa URL'
+  # In Filter Button
+Search Filters:
+  Search Filters: 'Mga filter ng paghahanap'
+  Prioritize:
+    Most Relevant: 'Pinakanakakaugnay'
+  Time:
+    Time: 'Oras'
+    Any Time: 'Kahit anuman oras'
+    Today: 'Ngayon'
+    This Week: 'Ngayong linggo'
+    This Month: 'Ngayong buwan'
+    This Year: 'Ngayong taon'
+  Type:
+    Type: 'Uri'
+    All Types: 'Lahat ng mga uri'
+    Videos: 'Mga video'
+    Channels: 'Mga channel'
+    #& Playlists
+    Movies: Mga pelikula
+  Duration:
+    Duration: 'Tagal'
+    All Durations: 'Lahat ng mga durasyon'
+    '< 3 minutes': '< 3 minuto'
+    '> 20 minutes': '> 20 minuto'
+    '3 - 20 minutes': 3 - 20 na minuto
+  Search Results: 'Mga Resulta'
+  Fetching results. Please wait: 'Sinusundo ang mga resulta. Maghintay lang po'
+  Fetch more results: 'Magsundo ng marami pang resulta'
+# Sidebar
+  Features:
+    Features: Mga Feature
+    Location: Lokasyon
+    HD: HD
+  There are no more results for this search: Wala nang resulta sa search na ito
+Subscriptions:
+    # On Subscriptions Page
+  Subscriptions: 'Mga Suskripsyon'
+  'Your Subscription list is currently empty. Start adding subscriptions to see them here.': 'Ang iyong listahan ng Suskripsyon ay kasalukuyang walang laman. Simulang magdagdag ng mga suskripsyon upang makita ang mga ito dito.'
+  This profile has a large number of subscriptions. Forcing RSS to avoid rate limiting: Maraming subscriptions itong profile.   Pilitin na iwasan ang rate limiting
+Trending:
+  Trending: 'Nagte-trend'
+  Gaming: Laro
+Most Popular: 'Pinakasikat'
+Settings:
+  # On Settings Page
+  General Settings:
+    General Settings: Pangkalahatan
+    Thumbnail Preference:
+      Beginning: Simula
+      Middle: Gitna
+      End: Huli
+      Hidden: Nakatago
+    External Link Handling:
+      External Link Handling: Aksiyon sa Link na Palabas
+      Open Link: Buksan ang Link
+      Ask Before Opening Link: Magtanong Muna Bago Buksan ang Link
+      No Action: Walang Gagawin
+  Theme Settings:
+    Theme Settings: Tema
+    Expand Side Bar by Default: Palaparin nang Kusa ang Tagiliran
+    UI Scale: Laki ng UI
+  Player Settings:
+    Default Quality:
+      144p: 144p
+      240p: 240p
+      360p: 360p
+      480p: 480p
+      720p: 720p
+      1080p: 1080p
+      1440p: 1440p
+      4k: 4k
+      8k: 8k
+Channel:
+  Videos:
+    Videos: Mga video
+  Playlists: {}
+Download From Site: I-download mula sa website
+Open New Window: buksan ang bagong window
+New Window: Bagong window
+Global:
+  Counts:
+    View Count: 1 na panonood | {count} na mga panonood
+  Live: Mga Live
+  Videos: Mga Video
+  Shorts: Mga Shorts
+  Sort By: 'Pag-uri-uriin ayon'
+  Posts: Mga Post
+Search Bar:
+  Clear Input: Alisin ang Input
+  Remove: Tanggalin
+External link opening has been disabled in the general settings: Ang pag bukas ng link sa panlabas ay pinasara sa general settings
+Age Restricted:
+  This channel is age restricted: Itong channel ay pinaghihigpitan sa edad
+  This video is age restricted: Ang video na ito ay pinaghihigpitan sa edad
+Close Banner: I-Sara ang banner
+Are you sure you want to open this link?: Sigurado mo na buksan itong link?
+Search character limit: Na sobrahan ng {searchCharacterLimit} na tilik ang Search query
+Go to page: Pumunta sa {page}
+Preferences: Preferences
+Version {versionNumber} is now available!  Click for more details: Version {versionNumber} ay magamit na! . . Pindutin para sa detalye
+KeyboardShortcutPrompt:
+  Toggle Developer Tools: I-toggle ang mga Developer Tools
+  Zoom In: Palakihin
+  Zoom Out: Paliitin
+  Fullscreen: I-fullscreen
+Search Listing:
+  Label:
+    8K: 8K
+    4K: 4K
+Profile:
+  Select All: Piliin lahat
+Compact side navigation: Paliitin ang tagilirang nabigasyon
+Expand side navigation: Palakihin ang tagilirang nabigasyon
+More: Higit Pa
+User Playlists:
+  Sort By:
+    NameAscending: A-Z
+    NameDescending: Z-A
+    LatestCreatedFirst: Petsa ng Pagkakagawa (Bago Muna)
+    EarliestCreatedFirst: Petsa ng Pagkakagawa (Luma Muna)
+Share:
+  Copy Link: Kopyahin ang Link
+  Open Link: Buksan ang Link

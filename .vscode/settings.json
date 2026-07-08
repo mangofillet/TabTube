@@ -1,0 +1,32 @@
+{
+  "stylelint.packageManager": "pnpm",
+  "stylelint.snippet": [
+      "css",
+      "less",
+      "postcss",
+      "sass",
+      "scss"
+  ],
+  "stylelint.validate": [
+      "css",
+      "less",
+      "postcss",
+      "scss"
+  ],
+  "eslint.probe": [
+      "javascript",
+      "vue",
+      "json",
+      "jsonc",
+      "yml",
+      "yaml"
+  ],
+  "eslint.validate": [
+    "javascript",
+    "vue",
+    "json",
+    "jsonc",
+    "yml",
+    "yaml"
+  ]
+}

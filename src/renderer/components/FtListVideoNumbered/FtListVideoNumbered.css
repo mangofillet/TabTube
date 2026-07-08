@@ -1,0 +1,55 @@
+/*
+  Set a height to invisible/unloaded elements, so that lazy loading actually works.
+  If we don't set a height, they all get a height of 0px (because they have no content),
+  so they all bunch up together and end up loading all of them in one go.
+ */
+.placeholder {
+  block-size: 40px;
+}
+
+.draggable:active {
+  cursor: grabbing;
+}
+
+.draggedVideo {
+  opacity: 0;
+  transition: 0.01s;
+}
+
+.videoIndexArea {
+  color: var(--tertiary-text-color);
+  text-align: center;
+  user-select: none;
+}
+
+.grabBar {
+  display: none;
+  cursor: grab;
+  color: var(--tertiary-text-color);
+  margin: auto;
+}
+
+.draggable .videoIndexArea {
+  /* Make draggable area large */
+  margin-block: 0;
+  block-size: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: grab;
+}
+
+.draggable:not(.draggable:only-child) .videoIndexArea {
+  display: grid;
+  place-content: center;
+  grid-auto-rows: min-content;
+}
+
+.draggable:not(.draggable:only-child) .grabBar {
+  display: revert;
+  order: 2;
+}
+
+.videoIndexIcon {
+  font-size: 14px;
+}

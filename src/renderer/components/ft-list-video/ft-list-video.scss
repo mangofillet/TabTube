@@ -1,0 +1,83 @@
+@use '../../scss-partials/ft-list-item';
+
+.thumbnailLink:hover {
+  outline: 3px solid var(--side-nav-hover-color);
+}
+
+.grabBar {
+  color: var(--tertiary-text-color);
+  cursor: grab;
+  text-align: center;
+  user-select: none;
+
+  // Space a bit from the thumbnail.
+  padding-block: 1em;
+}
+
+.draggable:not(.draggable:only-child):focus .grabBar,
+.draggable:not(.draggable:only-child):hover .grabBar {
+  display: revert;
+}
+
+// If touch screen device, always show grab bar.
+@media (hover: none) {
+  .draggable:not(.draggable:only-child) .grabBar {
+    display: revert;
+  }
+}
+
+.thumbnailImage {
+  // Makes img element sized correctly before image loading starts
+  aspect-ratio: 16/9 auto;
+}
+
+.videoTagLine {
+  margin-block-start: 3px;
+}
+
+.videoTag {
+  padding: 3px;
+  margin-inline: 2px;
+  background-color: var(--secondary-card-bg-color);
+  font-size: 10px;
+  border-radius: 2px;
+  display: inline-block;
+  font-weight: 500;
+  white-space-collapse: collapse;
+}
+
+.videoTagLine .videoTag:first-child {
+  margin-inline-start: 0;
+}
+
+.deArrowToggleButton {
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1em;
+  transition: background 0.15s ease-out;
+  background-color: transparent;
+  color: var(--primary-color);
+  border-color: transparent;
+
+  &:not(.disabled) {
+    &:hover,
+    &:focus-visible {
+      background-color: var(--side-nav-hover-color);
+    }
+
+    &:active {
+      background-color: var(--side-nav-active-color);
+    }
+
+    &.alwaysVisible {
+      opacity: 1;
+      filter: grayscale(1);
+    }
+  }
+}
+
+.deArrowToggleIcon {
+  inline-size: 1em;
+}

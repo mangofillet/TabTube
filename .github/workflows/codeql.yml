@@ -1,0 +1,54 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ "development" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "development" ]
+  schedule:
+    - cron: '36 3 * * 5'
+
+permissions: {}
+
+jobs:
+  analyze:
+    # As this action runs on a schedule, only run it in the FreeTubeApp/FreeTube repository to avoid unnecessary GitHub Actions usage/billing in forks.
+    # We still allow it to run if it was triggered by a pull request or a push as active forks should care about security.
+    # If a fork does need this workflow to run on a schedule, they can change this condition in their fork to include their repository.
+    if: github.repository == 'FreeTubeApp/FreeTube' || github.event_name != 'schedule'
+
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+            build-mode: none
+          - language: javascript-typescript
+            build-mode: none
+          # https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #v7.0.0
+      with:
+        persist-credentials: false
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a # v4.36.3
+      with:
+        languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a # v4.36.3
+      with:
+        category: "/language:${{matrix.language}}"

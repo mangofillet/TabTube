@@ -1,0 +1,55 @@
+name: Build TabTube
+
+# Builds Windows, macOS and Linux installers. Runs on a version tag (v*) or manually.
+# Each OS builds on its own runner (macOS installers can only be built on macOS).
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: Linux (AppImage)
+            build: pnpm run pack && node _scripts/build-appimage.mjs
+          - os: windows-latest
+            name: Windows (nsis + portable)
+            build: pnpm run pack && pnpm run build-release
+          - os: macos-latest
+            name: macOS (dmg)
+            build: pnpm run pack && pnpm run build-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: ${{ matrix.build }}
+        # Unsigned builds — users may see an "unidentified developer" / SmartScreen
+        # warning. Add signing certs as secrets later if desired.
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      - name: Upload installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: tabtube-${{ matrix.os }}
+          path: |
+            build/*.AppImage
+            build/*.exe
+            build/*.dmg
+          if-no-files-found: warn
