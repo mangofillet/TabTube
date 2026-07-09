@@ -8,5 +8,6 @@ contextBridge.exposeInMainWorld('tabBar', {
   },
   newTab: () => ipcRenderer.send('tabbar:action', { type: 'new' }),
   closeTab: (id) => ipcRenderer.send('tabbar:action', { type: 'close', id }),
-  activateTab: (id) => ipcRenderer.send('tabbar:action', { type: 'activate', id })
+  activateTab: (id) => ipcRenderer.send('tabbar:action', { type: 'activate', id }),
+  reloadTab: (id) => ipcRenderer.send('tabbar:action', { type: 'reload', id })
 })

@@ -40,10 +40,13 @@ export const TAB_BAR_HTML = `<!DOCTYPE html>
       border-top-color: transparent; border-radius: 50%; animation: tt-spin 0.7s linear infinite;
     }
     @keyframes tt-spin { to { transform: rotate(360deg); } }
-    .close {
+    .refresh, .close {
       flex: 0 0 auto; width: 18px; height: 18px; border: none; border-radius: 50%;
-      background: transparent; color: inherit; cursor: pointer; font-size: 15px; line-height: 1; padding: 0;
+      background: transparent; color: inherit; cursor: pointer; font-size: 13px; line-height: 1; padding: 0;
     }
+    .refresh { font-size: 12px; opacity: 0.75; }
+    .refresh:hover { background: var(--hover-bg); opacity: 1; }
+    .close { font-size: 15px; }
     .close:hover { background: var(--close-hover); color: #fff; }
     #new {
       flex: 0 0 auto; align-self: center; width: 26px; height: 26px; border: none;
@@ -73,6 +76,17 @@ export const TAB_BAR_HTML = `<!DOCTYPE html>
         title.className = 'title'
         title.textContent = tab.loading ? 'Loading\\u2026' : (tab.title || '')
         el.appendChild(title)
+        const refresh = document.createElement('button')
+        refresh.className = 'refresh'
+        refresh.textContent = '\\u27f3'
+        refresh.title = 'Reload'
+        refresh.setAttribute('aria-label', 'Reload tab')
+        refresh.addEventListener('mousedown', (e) => {
+          e.stopPropagation()
+          e.preventDefault()
+          window.tabBar.reloadTab(tab.id)
+        })
+        el.appendChild(refresh)
         const close = document.createElement('button')
         close.className = 'close'
         close.textContent = '\\u00d7'

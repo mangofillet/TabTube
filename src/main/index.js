@@ -1302,6 +1302,9 @@ function runApp() {
       case 'activate':
         manager.activate(action.id)
         break
+      case 'reload':
+        manager.reload(action.id)
+        break
     }
   })
 
@@ -2448,6 +2451,12 @@ function runApp() {
       {
         label: 'View',
         submenu: [
+          {
+            label: 'Reload Video',
+            accelerator: 'CmdOrCtrl+R',
+            click: (_, window) => window?._tabManager?.reload()
+          },
+          { label: 'Reload Video', accelerator: 'f5', visible: false, click: (_, window) => window?._tabManager?.reload() },
           { role: 'toggledevtools' },
           { role: 'toggledevtools', accelerator: 'f12', visible: false },
           {

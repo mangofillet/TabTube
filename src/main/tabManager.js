@@ -60,6 +60,14 @@ export class TabManager {
     }
   }
 
+  /** Reload a tab's page (e.g. an unstuck/stalled video). Defaults to the active tab. */
+  reload(id = this.activeId) {
+    const tab = this.tabs.find(t => t.id === id)
+    if (tab && !tab.view.webContents.isDestroyed()) {
+      tab.view.webContents.reload()
+    }
+  }
+
   /**
    * Open a new tab. Activates it unless `activate` is false (background open).
    * @param {string} [url]
