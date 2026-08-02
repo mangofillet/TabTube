@@ -48,6 +48,11 @@
   </branding>
 
   <releases>
+    <release version="0.1.1" date="2026-08-03">
+      <description>
+        <p>Fixes comments failing to load after a YouTube change, and adds a reload button to each tab.</p>
+      </description>
+    </release>
     <release version="0.1.0" date="2026-07-08">
       <description>
         <p>Initial TabTube release: browser-style tabs on top of FreeTube.</p>

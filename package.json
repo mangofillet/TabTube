@@ -2,7 +2,7 @@
   "name": "tabtube",
   "productName": "TabTube",
   "description": "A private YouTube client with tabs (an unofficial fork of FreeTube)",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "AGPL-3.0-or-later",
   "main": "./dist/main.js",
   "private": true,

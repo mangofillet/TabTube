@@ -24,7 +24,7 @@ export class TabManager {
   constructor(window, opts) {
     this.window = window
     this.opts = opts
-    /** @type {{ id: string, view: WebContentsView, title: string }[]} */
+    /** @type {{ id: string, view: WebContentsView, title: string, loading: boolean }[]} */
     this.tabs = []
     this.activeId = null
     this._uid = 0
@@ -71,7 +71,8 @@ export class TabManager {
   /**
    * Open a new tab. Activates it unless `activate` is false (background open).
    * @param {string} [url]
-   * @param {{ activate?: boolean }} [options]
+   * @param {{ activate?: boolean, focusSearch?: boolean }} [options]
+   *        `focusSearch` focuses the app's search box once loaded (the "+" button).
    */
   newTab(url, { activate = true, focusSearch = false } = {}) {
     const view = new WebContentsView({ webPreferences: this.opts.webPreferences })
