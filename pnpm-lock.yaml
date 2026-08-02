@@ -7,6 +7,9 @@ settings:
 overrides:
   uuid@<11.1.1: '>=11.1.1'
 
+patchedDependencies:
+  youtubei.js: c179a6b5312f134fff4711c87a04678ef9b479089a212a9a79c98a891bccd698
+
 importers:
 
   .:
@@ -76,7 +79,7 @@ importers:
         version: 4.1.0(vue@3.5.39(typescript@6.0.3))
       youtubei.js:
         specifier: ^17.2.0
-        version: 17.2.0
+        version: 17.2.0(patch_hash=c179a6b5312f134fff4711c87a04678ef9b479089a212a9a79c98a891bccd698)
     devDependencies:
       '@babel/core':
         specifier: ^8.0.1
@@ -11236,7 +11239,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  youtubei.js@17.2.0:
+  youtubei.js@17.2.0(patch_hash=c179a6b5312f134fff4711c87a04678ef9b479089a212a9a79c98a891bccd698):
     dependencies:
       '@bufbuild/protobuf': 2.1.0
       fflate: 0.8.3
