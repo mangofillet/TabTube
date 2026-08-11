@@ -58,6 +58,9 @@ import { useI18n } from 'vue-i18n'
 
 const MANIFEST_TYPE_DASH = 'application/dash+xml'
 const MANIFEST_TYPE_HLS = 'application/x-mpegurl'
+// TabTube: reloading twice is enough to clear a genuinely stale playback context.
+// Beyond that the reloads are chasing a throttled session and just loop.
+const MAX_SABR_RELOADS_PER_VIDEO = 2
 const UNAVAILABLE_VIDEO_THUMBNAILS = {
   light: 'https://www.youtube.com/img/desktop/unavailable/unavailable_video.png',
   dark: 'https://www.youtube.com/img/desktop/unavailable/unavailable_video_dark_theme.png'
@@ -99,6 +102,11 @@ export default defineComponent({
       startNextVideoInFullscreen: false,
       startNextVideoInFullwindow: false,
       startNextVideoInPip: false,
+      // TabTube: SABR reloads rebuild the whole view, so a per-stream guard can't see
+      // them repeat. These survive `resetVideoState` on purpose and are only cleared
+      // when we move to a different video (see `onPlayerReloadRequested`).
+      sabrReloadVideoId: null,
+      sabrReloadCount: 0,
       isLoading: true,
       firstLoad: true,
       useTheatreMode: false,
@@ -1949,8 +1957,27 @@ export default defineComponent({
       this.startNextVideoInPip = uiState.startNextVideoInPip
     },
 
-    async onPlayerReloadRequested() {
-      showToast('Reloading player according to SABR request')
+    async onPlayerReloadRequested(reason) {
+      // A reload rebuilds the SABR stream from scratch, so if the session is being
+      // throttled the new stream backs off exactly like the old one did and we end up
+      // reloading forever. Count reloads per video and stop once it's clearly not helping.
+      if (this.sabrReloadVideoId !== this.videoId) {
+        this.sabrReloadVideoId = this.videoId
+        this.sabrReloadCount = 0
+      }
+      this.sabrReloadCount++
+
+      if (this.sabrReloadCount > MAX_SABR_RELOADS_PER_VIDEO) {
+        showToast(
+          'YouTube is throttling this playback session. Playback will keep retrying instead of reloading — try a different quality, or check your VPN/network.',
+          10000
+        )
+        return
+      }
+
+      showToast(reason === 'backoff-loop'
+        ? 'Playback stalled waiting on YouTube, reloading player'
+        : 'Reloading player according to SABR request')
 
       const timestamp = this.getTimestamp()
       if (timestamp > 0) {

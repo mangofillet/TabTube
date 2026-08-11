@@ -1280,9 +1280,17 @@ function runApp() {
     if (isFreeTubeUrl(event.senderFrame.url)) {
       if (startupUrl) {
         // TabTube: the app lives in a tab view, so target the active tab, not the
-        // window's (blank) webContents.
-        const target = mainWindow?._tabManager?.activeView()?.webContents ?? event.sender
-        target.send(IpcChannels.OPEN_URL, startupUrl)
+        // window's (blank) webContents. A tab torn down while another was still
+        // booting can leave `webContents` present but no longer usable, so check it
+        // really is one before sending — this fired on app close.
+        const activeContents = mainWindow?._tabManager?.activeView()?.webContents
+        const target = (activeContents && !activeContents.isDestroyed())
+          ? activeContents
+          : event.sender
+
+        if (typeof target?.send === 'function' && !target.isDestroyed()) {
+          target.send(IpcChannels.OPEN_URL, startupUrl)
+        }
       }
       startupUrl = null
     }
@@ -2188,12 +2196,23 @@ function runApp() {
   // *********** //
 
   function syncOtherWindows(channel, event, payload) {
-    const otherWindows = BrowserWindow.getAllWindows().filter((window) => {
-      return window.webContents.id !== event.sender.id && isFreeTubeUrl(window.webContents.getURL())
-    })
+    // TabTube: a window's own webContents renders the tab-bar chrome, not the app, so
+    // the upstream window-level broadcast reached nothing. The app runs in the tab
+    // views, so sync every tab of every window except the one that sent the change.
+    for (const window of BrowserWindow.getAllWindows()) {
+      const tabManager = window._tabManager
 
-    for (const window of otherWindows) {
-      window.webContents.send(channel, payload)
+      if (tabManager) {
+        for (const tab of tabManager.tabs) {
+          const contents = tab.view.webContents
+
+          if (contents.id !== event.sender.id && !contents.isDestroyed() && isFreeTubeUrl(contents.getURL())) {
+            contents.send(channel, payload)
+          }
+        }
+      } else if (window.webContents.id !== event.sender.id && isFreeTubeUrl(window.webContents.getURL())) {
+        window.webContents.send(channel, payload)
+      }
     }
   }
 

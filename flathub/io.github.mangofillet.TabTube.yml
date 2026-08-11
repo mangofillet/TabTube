@@ -36,8 +36,8 @@ modules:
       - type: file
         only-arches:
           - x86_64
-        url: https://github.com/mangofillet/TabTube/releases/download/v0.1.0/TabTube-0.1.0.AppImage
-        sha256: 5ac1fb1881cc3beb4e2a2528902b14e6384d77fd3648cfe87d8538ed2a919aef
+        url: https://github.com/mangofillet/TabTube/releases/download/v0.1.1/TabTube-0.1.1.AppImage
+        sha256: 2ce69b28cfe57b57da90ca46b2a312d788ee9545172d6bb098921714d94a4a50
         dest-filename: TabTube.AppImage
         # Lets Flathub's update bot open a PR (new url + sha256) on each release.
         x-checker-data:

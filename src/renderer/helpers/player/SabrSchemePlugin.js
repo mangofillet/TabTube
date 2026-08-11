@@ -21,6 +21,17 @@ import { deepCopy } from '../utils'
 const AbortableOperation = shaka.util.AbortableOperation
 const ShakaError = shaka.util.Error
 
+// TabTube: how many server-requested backoffs one segment's retry chain may absorb
+// before we treat it as a stuck stream and ask for a player reload.
+//
+// Keep this at 3 — it is coupled to `createTimeoutController`, which resets shaka's
+// request timeout only ONCE per request. Raising it lets later backoffs accumulate
+// wall-clock time with no reset left, so shaka times out first (NETWORK/TIMEOUT 1003),
+// which Watch.js escalates into a format fallback and playback restarts at a lower
+// quality. Tried 10 to ride out throttling; the real cause was an untrusted PO token
+// (see botGuardScript.js) and this only traded reloads for quality drops.
+const MAX_BACKOFFS_BEFORE_RELOAD = 3
+
 /**
  * @typedef OperationInputs
  * @type {object}
@@ -55,6 +66,7 @@ const ShakaError = shaka.util.Error
  * @property {number} cumulativeBackOffTimeMs
  * @property {number} cumulativeBackOffRequested
  * @property {number} cumulativeRetryDueToNextRequestPolicy
+ * @property {boolean} [sawUntrustedPoToken]
  */
 /**
  * @typedef SabrStreamState
@@ -76,7 +88,7 @@ const ShakaError = shaka.util.Error
  * @typedef SabrStream
  * @type {object}
  * @property {(cb: ({backoffMs: number}) => void) => void} onBackoffRequested
- * @property {(cb: () => void) => void} onReloadOnce
+ * @property {(cb: ({reason: 'server' | 'backoff-loop'}) => void) => void} onReloadOnce
  * @property {() => void | undefined} cleanup
  */
 
@@ -322,7 +334,7 @@ async function doRequest(
       currentState.cumulativeBackOffRequested += 1
       const timeoutMs = operationInputs.request.retryParameters.timeout
       // Detect infinite backoff loop by no. of times requested and cumulative time approaching timeout
-      if (currentState.cumulativeBackOffRequested >= 3 || (timeoutMs > 0 && timeoutMs <= (currentState.cumulativeBackOffTimeMs + currentBackoffTimeMs))) {
+      if (currentState.cumulativeBackOffRequested >= MAX_BACKOFFS_BEFORE_RELOAD || (timeoutMs > 0 && timeoutMs <= (currentState.cumulativeBackOffTimeMs + currentBackoffTimeMs))) {
         shouldReloadDueToBackoffLoop = true
       }
     }
@@ -330,8 +342,22 @@ async function doRequest(
       // Fire fake reload event due to detecting retry loop
       currentState.sabrStreamState.playerReloadRequested = true
       if (!currentState.abortController.signal.aborted) {
+        // TabTube diagnostic: these two causes look identical to the user but mean very
+        // different things — repeated non-zero backoffs vs. YouTube returning zero-backoff
+        // policies without media (the signature of an untrusted PO token).
+        console.warn('SABR: giving up and reloading', {
+          cause: shouldReloadDueToBackoffLoop ? 'repeated-backoffs' : 'zero-backoff-retry-loop',
+          backoffsRequested: currentState.cumulativeBackOffRequested,
+          cumulativeBackoffMs: currentState.cumulativeBackOffTimeMs,
+          retriesDueToRequestPolicy: currentState.cumulativeRetryDueToNextRequestPolicy,
+          poTokenUntrusted: !!currentState.sawUntrustedPoToken,
+        })
         currentState.abortController.abort()
-        currentState.eventEmitter.emit('reload')
+        // TabTube: `backoff-loop` is our own heuristic giving up, not something the
+        // server asked for. The distinction matters upstream: a server reload is
+        // expected and worth retrying, ours means the session is being throttled and
+        // repeating it is likely to loop.
+        currentState.eventEmitter.emit('reload', { reason: 'backoff-loop' })
       }
     }
 
@@ -360,6 +386,14 @@ async function doRequest(
             const streamProtectionStatus = decodePart(part, StreamProtectionStatus)
             if (streamProtectionStatus.status === 3) {
               invalidPoToken = true
+            } else if (streamProtectionStatus.status === 2) {
+              // TabTube diagnostic: status 2 = YouTube accepted the PO token but doesn't
+              // trust it, so it serves only a small cold-start allowance and then stops
+              // sending media. Nothing here replaces the token, so playback stalls once
+              // the allowance runs out. Logged (not acted on) to confirm whether the
+              // stalls users see are attestation failures rather than network problems.
+              currentState.sawUntrustedPoToken = true
+              console.warn('SABR: StreamProtectionStatus 2 — PO token not trusted, playback will stall once the cold-start allowance is used up')
             }
             break
           }
@@ -478,7 +512,7 @@ async function doRequest(
             currentState.sabrStreamState.playerReloadRequested = true
             if (!currentState.abortController.signal.aborted) {
               currentState.abortController.abort()
-              currentState.eventEmitter.emit('reload')
+              currentState.eventEmitter.emit('reload', { reason: 'server' })
             }
             break
           }
