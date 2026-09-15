@@ -126,7 +126,7 @@
 }
 
 .commentSubscribedIcon {
-  content: var(--logo-icon);
+  content: url('../../../../_icons/icon.svg');
   block-size: 14px;
   inline-size: 14px;
   vertical-align: middle;

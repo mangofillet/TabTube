@@ -34,11 +34,6 @@ body {
   --destructive-text-color: #000;
   --destructive-hover-color: #e53935;
   --destructive-active-color: #c62828;
-
-  /* For the 'About' page, show the logo with the primary text color by default */
-  --logo-primary-color: var(--primary-text-color);
-  --logo-secondary-color: var(--primary-text-color);
-  --logo-tertiary-color: var(--primary-text-color);
 }
 
 /*************** RULE TWEAKS ***************/
@@ -55,26 +50,6 @@ body:not(.hotPink) {
 body:not(.hotPink, .pastelPink) {
   --side-nav-active-text-color: var(--primary-text-color);
   --scrollbar-text-color-hover: var(--primary-text-color);
-}
-
-/* Themes that use the main FreeTube logo */
-.system[data-system-theme*='light'],
-.light,
-.system[data-system-theme*='dark'],
-.dark,
-.black {
-  --logo-icon: url('../../_icons/iconColorSmall.svg');
-  --logo-text: url('../../_icons/textColorSmall.svg');
-  --logo-primary-color: #f33;
-  --logo-secondary-color: #29abe1;
-  --logo-tertiary-color: #000;
-}
-
-/* Text "app" should be visible but retain FreeTube color logo */
-.system[data-system-theme*='dark'],
-.dark,
-.black {
-  --logo-tertiary-color: #fff;
 }
 
 /* Given that the Hot Pink theme does not need link underlining due to meeting
@@ -235,8 +210,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #3b4252;
   --side-nav-active-color: #3b4252;
   --search-bar-color: #4b566a;
-  --logo-icon: url('../../_icons/iconNordicLightSmall.svg');
-  --logo-text: url('../../_icons/textNordicLightSmall.svg');
 }
 
 .hotPink {
@@ -257,8 +230,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-active-color: #959595;
   --side-nav-active-text-color: #000;
   --search-bar-color: #9c2d5d;
-  --logo-icon: url('../../_icons/iconWhiteSmall.svg');
-  --logo-text: url('../../_icons/textWhiteSmall.svg');
 
   /* The hot pink theme does not have a great color contrast with
   many other colors than black and white. This means that the primary and
@@ -297,8 +268,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-active-color: #3124e7;
   --side-nav-active-text-color: #ffff;
   --search-bar-color: #fff0dd;
-  --logo-icon: url('../../_icons/iconBlackSmall.svg');
-  --logo-text: url('../../_icons/textBlackSmall.svg');
 }
 
 .catppuccinMocha {
@@ -316,8 +285,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #11111b;
   --side-nav-active-color: #11111b;
   --search-bar-color: #313244;
-  --logo-icon: url('../../_icons/iconCatppuccinMochaLightSmall.svg');
-  --logo-text: url('../../_icons/textCatppuccinMochaLightSmall.svg');
 }
 
 .dracula {
@@ -335,8 +302,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #57596b;
   --side-nav-active-color: #3d4051;
   --search-bar-color: #3e3f4a;
-  --logo-icon: url('../../_icons/iconDraculaLightSmall.svg');
-  --logo-text: url('../../_icons/textDraculaLightSmall.svg');
 }
 
 .solarizedDark {
@@ -354,8 +319,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #608b96;
   --side-nav-active-color: #406b76;
   --search-bar-color: #073642;
-  --logo-icon: url('../../_icons/iconSolarizedLightSmall.svg');
-  --logo-text: url('../../_icons/textSolarizedLightSmall.svg');
 }
 
 .solarizedLight {
@@ -373,8 +336,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #fdf6e3;
   --side-nav-active-color: #839496;
   --search-bar-color: #c9c8b5;
-  --logo-icon: url('../../_icons/iconSolarizedDarkSmall.svg');
-  --logo-text: url('../../_icons/textSolarizedDarkSmall.svg');
 }
 
 .gruvboxDark {
@@ -392,8 +353,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #665c54;
   --side-nav-active-color: #504945;
   --search-bar-color: #1d2021;
-  --logo-icon: url('../../_icons/iconGruvboxLightSmall.svg');
-  --logo-text: url('../../_icons/textGruvboxLightSmall.svg');
 }
 
 .gruvboxLight {
@@ -411,8 +370,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #bdae93;
   --side-nav-active-color: #ebdbb2;
   --search-bar-color: #a89984;
-  --logo-icon: url('../../_icons/iconGruvboxDarkSmall.svg');
-  --logo-text: url('../../_icons/textGruvboxDarkSmall.svg');
 }
 
 .catppuccinFrappe {
@@ -430,8 +387,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #232634;
   --side-nav-active-color: #232634;
   --search-bar-color: #414559;
-  --logo-icon: url('../../_icons/iconCatppuccinFrappeLightSmall.svg');
-  --logo-text: url('../../_icons/textCatppuccinFrappeLightSmall.svg');
 }
 
 .everforestDarkHard {
@@ -449,8 +404,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #0e1316;
   --side-nav-active-color: #0e1316;
   --search-bar-color: #2e383c;
-  --logo-icon: url('../../_icons/iconEverforestLightHardSmall.svg');
-  --logo-text: url('../../_icons/textEverforestLightHardSmall.svg');
 }
 
 .everforestDarkMedium {
@@ -468,8 +421,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #131a1e;
   --side-nav-active-color: #131a1e;
   --search-bar-color: #343f44;
-  --logo-icon: url('../../_icons/iconEverforestLightMediumSmall.svg');
-  --logo-text: url('../../_icons/textEverforestLightMediumSmall.svg');
 }
 
 .everforestDarkLow {
@@ -487,8 +438,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #192126;
   --side-nav-active-color: #192126;
   --search-bar-color: #3a464c;
-  --logo-icon: url('../../_icons/iconEverforestLightLowSmall.svg');
-  --logo-text: url('../../_icons/textEverforestLightLowSmall.svg');
 }
 
 .everforestLightHard {
@@ -506,8 +455,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #e2dfcf;
   --side-nav-active-color: #e2dfcf;
   --search-bar-color: #f8f5e4;
-  --logo-icon: url('../../_icons/iconEverforestDarkHardSmall.svg');
-  --logo-text: url('../../_icons/textEverforestDarkHardSmall.svg');
 }
 
 .everforestLightMedium {
@@ -525,8 +472,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #dfd8c4;
   --side-nav-active-color: #dfd8c4;
   --search-bar-color: #f4f0d9;
-  --logo-icon: url('../../_icons/iconEverforestDarkMediumSmall.svg');
-  --logo-text: url('../../_icons/textEverforestDarkMediumSmall.svg');
 }
 
 .everforestLightLow {
@@ -544,8 +489,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #d5cfb5;
   --side-nav-active-color: #d5cfb5;
   --search-bar-color: #eae4ca;
-  --logo-icon: url('../../_icons/iconEverforestDarkLowSmall.svg');
-  --logo-text: url('../../_icons/textEverforestDarkLowSmall.svg');
 }
 
 .catppuccinLatte {
@@ -563,8 +506,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
   --side-nav-hover-color: #dce0e8;
   --side-nav-active-color: #dce0e8;
   --search-bar-color: #ccd0da;
-  --logo-icon: url('../../_icons/iconCatppuccinLatteDarkSmall.svg');
-  --logo-text: url('../../_icons/textCatppuccinLatteDarkSmall.svg');
 }
 
 /*************** PRIMARY THEME COLOR DEFINTIONS ***************/
@@ -580,8 +521,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainTeal,
 .mainGreen {
   --text-with-main-color: #fff;
-  --logo-icon-bar-color: url('../../_icons/iconWhiteSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textWhiteSmall.svg');
 }
 
 /* light primary theme colors */
@@ -592,8 +531,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainOrange,
 .mainDeepOrange {
   --text-with-main-color: #000;
-  --logo-icon-bar-color: url('../../_icons/iconBlackSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textBlackSmall.svg');
 }
 
 .mainRed {
@@ -710,8 +647,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainCatppuccinMochaBlue,
 .mainCatppuccinMochaLavender {
   --text-with-main-color: #1e1e2e;
-  --logo-icon-bar-color: url('../../_icons/iconCatppuccinMochaDarkSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textCatppuccinMochaDarkSmall.svg');
 }
 
 .mainCatppuccinMochaRosewater {
@@ -804,15 +739,11 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainDraculaRed,
 .mainDraculaYellow {
   --text-with-main-color: #282a36;
-  --logo-icon-bar-color: url('../../_icons/iconDraculaDarkSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textDraculaDarkSmall.svg');
 }
 
 .mainDraculaPink,
 .mainDraculaPurple {
   --text-with-main-color: #f8f8f2;
-  --logo-icon-bar-color: url('../../_icons/iconDraculaLightSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textDraculaLightSmall.svg');
 }
 
 .mainDraculaCyan {
@@ -864,15 +795,11 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainSolarizedViolet,
 .mainSolarizedGreen {
   --text-with-main-color: #fdf6e3;
-  --logo-icon-bar-color: url('../../_icons/iconDraculaLightSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textDraculaLightSmall.svg');
 }
 
 .mainSolarizedBlue,
 .mainSolarizedCyan {
   --text-with-main-color: #000;
-  --logo-icon-bar-color: url('../../_icons/iconDraculaDarkSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textDraculaDarkSmall.svg');
 }
 
 .mainSolarizedYellow {
@@ -988,8 +915,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainGruvboxLightBlue,
 .mainGruvboxLightPurple {
   --text-with-main-color: #fbf1c7;
-  --logo-icon-bar-color: url('../../_icons/iconGruvboxLightSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textGruvboxLightSmall.svg');
 }
 
 
@@ -998,15 +923,11 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainGruvboxDarkAqua,
 .mainGruvboxDarkOrange {
   --text-with-main-color: #3c3836;
-  --logo-icon-bar-color: url('../../_icons/iconGruvboxDarkSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textGruvboxDarkSmall.svg');
 }
 
 .mainGruvboxDarkBlue,
 .mainGruvboxDarkPurple {
   --text-with-main-color: #1d2021;
-  --logo-icon-bar-color: url('../../_icons/iconGruvboxDarkSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textGruvboxDarkSmall.svg');
 }
 
 .mainCatppuccinFrappeRosewater,
@@ -1024,8 +945,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainCatppuccinFrappeBlue,
 .mainCatppuccinFrappeLavender {
   --text-with-main-color: #24273a;
-  --logo-icon-bar-color: url('../../_icons/iconCatppuccinFrappeDarkSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textCatppuccinFrappeDarkSmall.svg');
 }
 
 .mainCatppuccinFrappeRosewater {
@@ -1127,8 +1046,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainEverforestLightBlue,
 .mainEverforestLightPurple {
   --text-with-main-color: #1e2326;
-  --logo-icon-bar-color: url('../../_icons/iconEverforestDarkHardSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textEverforestDarkHardSmall.svg');
 }
 
 .mainEverforestDarkRed {
@@ -1218,8 +1135,6 @@ it can be safely elided. This looks quite pleasant on this theme. */
 .mainCatppuccinLatteMauve,
 .mainCatppuccinLatteRed {
   --text-with-main-color: #fff;
-  --logo-icon-bar-color: url('../../_icons/iconCatppuccinLatteLightSmall.svg');
-  --logo-text-bar-color: url('../../_icons/textCatppuccinLatteLightSmall.svg');
 }
 
 .mainCatppuccinLatteMauve {
